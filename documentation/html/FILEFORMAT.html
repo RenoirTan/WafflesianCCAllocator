@@ -1,0 +1,107 @@
+<h1>Input Workbook File Format Details</h1>
+
+<p>This document is compatible with the Wafflesian CCAllocator Version 1 beta onwards. If you have not read <code>README.md</code> yet, do check it out.</p>
+
+<h2>Summary</h2>
+
+<p>This document gives basic details on how an input workbook should look like before you run it through the program.</p>
+
+<h3>Administrative sheets</h3>
+
+<p>The input workbook must have the following administrative sheets:</p>
+
+<ol>
+<li>Student List,</li>
+<li>CCA List,</li>
+<li>Choices</li>
+</ol>
+
+<p>Optional administrative sheets include:</p>
+
+<ol>
+<li>Health Stats,</li>
+<li>Music,</li>
+<li>Art,</li>
+<li>Special</li>
+</ol>
+
+<p>Each corresponding sheet's name does not have to match with the standard names above. However, you must take note of their position in the workbook, so that the program will know where to retrieve data from.</p>
+
+<p>For example, <code>Student List</code> could be called <code>classlist</code> in your workbook. However, the program will still know where to retrieve the data of each student from just by telling it where the sheet is. (E.g.: 1)</p>
+
+<h4>Format of Student List</h4>
+
+<p>Student list has a total of 9 columns, namely:</p>
+
+<ol>
+<li>Student Number (in consecutive ascending order, otherwise there will be errors)</li>
+<li>Index Number (same as Student Number)</li>
+<li>Name</li>
+<li>ID (another form of identification)</li>
+<li>Class (not used)</li>
+<li>Date of Birth (not used)</li>
+<li>Allocated CCA (used after allocation)</li>
+<li>Choice # (used after allocation)</li>
+<li>CCA Rank (used after allocation)</li>
+</ol>
+
+<h4>Format of CCA List</h4>
+
+<p>CCA List has 4 rows:</p>
+
+<ol>
+<li>CCA Number</li>
+<li>CCA Name (can be standard name or nickname)</li>
+<li>CCA Long Name (for school staffs' identification of CCAs)</li>
+<li>Allocated (how many students each CCA can take a maximum of)</li>
+</ol>
+
+<h4>Format of Choices</h4>
+
+<ol>
+<li>Student Number</li>
+<li>ID</li>
+<li>Date of birth (not used)</li>
+<li>Class</li>
+<li>Past CCA (not used)</li>
+<li>Onwards (main choices)</li>
+<li>Even more onwords (other choices)</li>
+</ol>
+
+<h4>Format of Health Stats</h4>
+
+<ol>
+<li>Student Number</li>
+<li>Name</li>
+<li>ID</li>
+<li>Age (not used)</li>
+<li>Class (not used)</li>
+<li>Health parameters</li>
+</ol>
+
+<p>During data retrieval, the program will assume that the higher that a student scores at each parameter, the better the student is. However, as weight is an exception to this, <code>Weight</code> will be an exception keyword in health parameters.</p>
+
+<h4>Format of Music &amp; Art</h4>
+
+<ol>
+<li>ID</li>
+<li>Class</li>
+<li>Remarks</li>
+</ol>
+
+<h4>Format of Special</h4>
+
+<ol>
+<li>Name</li>
+<li>Domain</li>
+<li>CCA</li>
+</ol>
+
+<h3>CCA Shortlist Sheets</h3>
+
+<p>Each CCA can have their shortlist sheets. However, they must follow the following format:</p>
+
+<ol>
+<li>Rank</li>
+<li>Name</li>
+</ol>

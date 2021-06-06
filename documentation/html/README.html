@@ -1,0 +1,219 @@
+<h1>The Wafflesian CCAllocator Version 1.3.0 beta</h1>
+
+<h2>Introduction</h2>
+
+<p>The Wafflesian CCAllocator is a program that will make allocating CCAs to students fast and simple. With just your input excel workbook and a few clicks, you can allocate CCAs to students! All in mere seconds.</p>
+
+<p>Depending on the number of students, CCAs and wide range of parameters you can input, allocation can be as fast as 2.5 seconds!</p>
+
+<h2>Getting started</h2>
+
+<p>This program's executable <code>.exe</code> works on <code>Windows</code> only, unfortunately. To run this on other operating systems, please check out the section below.</p>
+
+<h3>Prerequisites and Installation</h3>
+
+<p>The executable is only available for Windows. To get the program, simply download it and click on it.</p>
+
+<p>If you are using another operating system or want to use the python source code, please read the instructions below.</p>
+
+<ol>
+<li>Download the zip file of the source code.</li>
+<li>Extract all files in the zip file.</li>
+<li>Download a version of Python that is 3.4 or above that is compatible with your OS/distribution. (Download the MSI installer to make installation simpler.)</li>
+<li>Install all optional features. (The <code>Python</code> program will be using it later.)</li>
+<li><p><strong>(optional)</strong> Create a virtual environment by navigating to the desired folder where you want the virtual environment to be with the terminal and enter:</p>
+
+<p><code>
+pip install virtualenv
+virtualenv (directory) &lt;- input with desired name of virtual environment
+source (directory)/bin/activate &lt;- activate virtual environment (enter this line every time you need to use the program)
+</code></p></li>
+<li><p>Install all required modules in <code>/CCA/scripts/requirements.txt</code></p>
+
+<p>To do this, open up your terminal and navigate to the folder (<code>.../CCA/scripts/</code>) where the <code>Python</code> program is. Type in:
+<code>pip install -r requirements.txt</code></p>
+
+<p>Alternatively, you could enter into the terminal:</p>
+
+<p><code>
+  pip install logging
+  pip install openpyxl
+  pip install pathlib
+  pip install traceback
+</code></p></li>
+</ol>
+
+<h3>Setting up the input workbook</h3>
+
+<p>To ensure compatibility with the program, make sure that the input file is in line with the format in outlined in <code>FILEFORMAT.md</code>. Alternatively, you can follow the example workbook in <code>.../xlsxfiles/template</code> for the python program or <code>.../template/</code> for the executable program.</p>
+
+<h3>Running the program (GUI)</h3>
+
+<p>If you wish to run the GUI program, run <code>CCAllocatorApp.exe</code> or <code>/CCA/scripts/CCAllocatorApp.py</code> and then, simply enter in the parameters and click <code>Start Allocation</code> at the bottom. Below is a list of what each input means:</p>
+
+<ol>
+<li>Path <strong>(Compulsory)</strong>: Path to where the input file is. E.g.: <code>C:/ExamplePath/FolderInTheFolder/CCAAllocations</code></li>
+<li>File name <strong>(Compulsory)</strong>: Name of the input file. E.g.: <code>students_and_ccas.xlsx</code>. <strong>Make sure that your input file is a Microsoft Excel Workbook which ends with <code>.xlsx</code>.</strong>
+Alternatively, you could use the graphic file selector labelled <code>Open window to select file:</code>.</li>
+<li>List of CCAs <strong>(Compulsory)</strong>: List of CCAs and their nicknames as they appear in the input file (CCAs separated by line breaks, nicknames separated by spaces). E.g.:
+<code>
+CCA nickname1 nickname2
+GuitarEnsemble guitar_cca
+Painting
+Swimming swim swimmingcca
+Programming Infocomm
+</code></li>
+<li>Type of CCAs: List of CCAs with their type. List of allowed types: <code>m (music), a (art), s (sport), b (basic)</code> E.g.:
+<code>
+CCA type
+GuitarEnsemble m
+Painting a
+Swimming s
+Programming b
+</code></li>
+<li><p>Position of <em>sheets</em>: Position of administrative sheets in the input file.</p>
+
+<p>List of administrative sheets:</p>
+
+<ol><li>Student List <strong>(Compulsory)</strong>: Sheet of list of students and basic info about them.</li>
+<li>Health Stats: Sheet of list of each students health data.</li>
+<li>Music: Sheet of list of students who show potential or interest in music CCAs.</li>
+<li>Art: Sheet of list of students who show potential or interest in art CCAs.</li>
+<li>Achievements: Sheet of each student's CCA in which they have achieved the best results or achievements in.</li>
+<li>CCA list <strong>(Compulsory)</strong>: Sheet of list of CCAs and basic information about them.</li>
+<li>Choices <strong>(Compulsory)</strong>: Sheet of list of students' choices.</li></ol></li>
+<li><p>Number of <em>choices</em>:</p>
+
+<ol><li>Main choices: Number of main CCAs each student is allowed to choose.</li>
+<li>Other choices: Same as above but for miscellaneous choices.</li></ol></li>
+</ol>
+
+<p>Once you have completed inputting all necessary information, press <code>Start Allocation</code> below.</p>
+
+<p>However, if you want to use <code>CCAllocator.py</code> as a module with a separate <code>Python</code> file to input parameters and run the algorithm, you can check out <code>example.py</code> in <code>.../CCA/scripts/</code>.</p>
+
+<p><strong>Once allocation has begun and finished, you can check out your input workbook. The allocated CCAs would appear in <code>Student List</code>.</strong> If you wish to, you can now press the <code>Begin Lottery</code> button, input the parameters and then have a popup surprise for your students.</p>
+
+<h3>Using the python module</h3>
+
+<p>If you want better control over the program, you can use python to allocate students. To do this, import <code>/CCA/scripts/CCAllocator.py</code> over and start coding.</p>
+
+<p>In total, there are 7 parameters and 7 functions/methods. The program uses Object-Oriented Programming and requires you to initiate an instance of the <code>Allocation</code> class to get started.</p>
+
+<h4>Parameters (Variables)</h4>
+
+<p>When initialising an instance for allocation, you can enter the following <em>kwargs</em>:</p>
+
+<ol>
+<li>path <strong>(string, Compulsory)</strong>: Path to where the input workbook is.</li>
+<li>fileName <strong>(string, Compulsory)</strong>: File name. Must include suffix (.xlsx)</li>
+<li>listOfCCAs <strong>(list, Compulsory)</strong>: List of CCAs in their standard name.</li>
+<li>CCAAliases <strong>(dictionary, Optional)</strong>: Dictionary of list of each CCA's nicknames. If the CCA does not have a nickname, no need to include it in the dictionary. Keys: Standard name of CCA, Value: [List of CCA's nicknames]</li>
+<li>CCAType <strong>(dictionary, Optional)</strong>: CCA Type. Keys: Standard name of CCA, Value: Type of CCA, can be "m", "a", "s" or "b" (music, art, sports, basic) respectively.</li>
+<li>sheetOrder <strong>(dictionary, Compulsory)</strong>: Where all the admin sheets are located. This tells the program where the important sheets are located. Example:
+<code>
+{
+   "studentList":1, # Sheet with list of students
+   "healthStats":2, # Sheet with health of students
+   "music":3, # Sheet of students with music interest
+   "art":4, # Sheet of students with art interest
+   "special":5, # Sheet of students with exceptional abilities in the CCA or has been in the CCA before
+   "CCAList":6, # Sheet of CCAs with info about them
+   "choices":7, # Sheet with the choices of the students
+}
+</code>
+You can call CCAllocator.SHEETORDER to get the format.</li>
+<li>numberOfChoices <strong>(dictionary, Compulsory)</strong>: Dictionary of how main and other choices students get. Example:
+<code>
+{
+  "main":9, # 9 main choices
+  "other":2 # 2 optional choices
+}
+</code>
+You can call CCAllocator.CHOICES to get the format.</li>
+</ol>
+
+<h4>Methods</h4>
+
+<p>Once you have initialised the instance with the above parameters, you can use the following methods in that order:</p>
+
+<ol>
+<li><code>Allocation.OpenFile()</code>: Opens file</li>
+<li><code>Allocation.Setup()</code>: Sets up attributes with information in the file</li>
+<li><code>Allocation.GetData()</code>: Obtains and configures data</li>
+<li><code>Allocation.Allocate()</code>: Allocates students</li>
+<li><code>Allocation.SaveToFile()</code>: Saves data to input workbook</li>
+<li><code>Allocation.Lottery(_print=bool, _studentIndex=int or list of ints, _class=string or list of strings)</code>: Retrieves data of students after allocation.</li>
+</ol>
+
+<h3>Creating a template</h3>
+
+<p>If you to create a template workbook, you can do so by pressing <code>Create Template</code> in the GUI or entering in <code>template = CCAllocator.Template(kwargs)</code>.</p>
+
+<p>Creating a new template in the GUI:</p>
+
+<p>There are 5 inputs:</p>
+
+<ol>
+<li>Path: Path to where the template should be.</li>
+<li>File name: Desired name of template. Must end in .xlsx.</li>
+<li>CCAs: List of CCAs. Separate with spaces.</li>
+<li><p>Sheet Order: Which admin sheets will appear in the template. You configure which sheets appear by using <em>t</em> as True and <em>f</em> as False, denoting whether the sheet will appear in the following order:</p>
+
+<ol><li>studentList</li>
+<li>healthStats</li>
+<li>music</li>
+<li>art</li>
+<li>special</li>
+<li>CCAList</li>
+<li>choices</li></ol>
+
+<p>For example, if <em>t f f f f t t</em>, only <em>studentList</em>, <em>CCAList</em> and <em>choices</em> will appear.</p></li>
+<li>Choices: How many choices each students is entitled. The numbers for main choices and other choices are separated by a space. For example: <em>9 2</em> means that each student can have 9 main choices and 2 other choices.</li>
+</ol>
+
+<p>Keyword arguments for <code>CCAllocator.Template()</code>:</p>
+
+<ol>
+<li>path <strong>(string)</strong>: String to where the template should be.</li>
+<li>fileName <strong>(string)</strong>: Desired file name of template. Must end in .xlsx</li>
+<li>CCAs <strong>(list)</strong>: List of CCAs.</li>
+<li>sheetOrder <strong>(dictionary)</strong>: Which admin sheets will appear in the template. It is the same as sheetOrder in Allocation(kwargs) but all values are booleans.</li>
+<li>choices <strong>(dictionary)</strong>: How many main choices and other choices each student is entitled to. Same as choices in Allocation(kwargs):</li>
+</ol>
+
+<h4>Example</h4>
+
+<p>If you need an example, you can open <code>/CCA/scripts/example.py</code> and read it to understand how to use the module.</p>
+
+<p>For examples on creating a template, you can check out <code>/CCA/scripts/create_template.py</code></p>
+
+<h3>Built with</h3>
+
+<p><a href="https://www.python.org">Python</a> - <em>Language</em></p>
+
+<p><a href="https://effbot.org/tkinterbook/">Tkinter</a> - <em>Effbot documentation</em></p>
+
+<p><a href="https://github.com/psf/black">Black</a> - <em>Code formatter</em></p>
+
+<h3>Contributing</h3>
+
+<p>Please read <code>CONTRIBUTING.md</code> for details on how to contribute.</p>
+
+<h3>Versioning</h3>
+
+<p>This project uses <code>SemVer</code> versioning. Check out <code>CHANGELOG.md</code> for changelogs.</p>
+
+<h3>Authors and contribution</h3>
+
+<p><strong>Renoir Tan</strong> - <em>Wrote all the code lol</em> - <a href="https://github.com/DerperorWaffle">DerperorWaffle</a></p>
+
+<p><strong>Tian Xiang Cheng</strong> - <em>Contributed ideas as to how the students should be allocated</em></p>
+
+<h3>License</h3>
+
+<p>We aren't qualified for licensing please don't steal.</p>
+
+<h3>Acknowledgements</h3>
+
+<p><strong>Mrs Neo</strong> for her invaluable guidance and advice :)</p>
